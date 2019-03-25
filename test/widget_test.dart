@@ -12,6 +12,10 @@ import 'package:flutter_fpslist/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+
+    // https://flutter.dev/docs/cookbook/testing/integration/scrolling
+    // https://github.com/flutter/flutter/blob/master/packages/flutter/test/widgets/ensure_visible_test.dart
+
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
@@ -21,6 +25,7 @@ void main() {
 
     // Tap the '+' icon and trigger a frame.
     await tester.tap(find.byIcon(Icons.add));
+    
     await tester.pump();
 
     // Verify that our counter has incremented.

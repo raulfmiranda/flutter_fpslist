@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     ];
 
     return MaterialApp(
-      showPerformanceOverlay: true,
+      showPerformanceOverlay: false,
       title: _title,
       home: Scaffold(
         appBar: AppBar(
@@ -25,21 +25,40 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView.builder(itemBuilder: (context, index) {
           return Card(
-            child: Column(
-              children: <Widget>[
-                Image.network(urlImages[index%urlImages.length]),
-                Text(
-                  "index: $index",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondRoute()));
+              },
+              child: Column(
+                children: <Widget>[
+                  Image.network(urlImages[index%urlImages.length], key: Key("$index"),),
+                  Text(
+                    "index: $index",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         })
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Screen"),
+      ),
+      body: Center(
+        child: Text('Second screen!'),
       ),
     );
   }
