@@ -1,6 +1,9 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+// Para rodar os testes
+// flutter drive --target=test_driver/app.dart
+
 void main() {
   group('Teste de integração ', () {
     FlutterDriver driver;
