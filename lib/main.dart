@@ -1,13 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    const _title = "Flutter FPSList";
+    const title = "Flutter FPSList";
     const urlImages = <String>[
       "https://images.pexels.com/photos/220421/pexels-photo-220421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -17,34 +20,41 @@ class MyApp extends StatelessWidget {
     ];
 
     return MaterialApp(
-      showPerformanceOverlay: false,
-      title: _title,
+      debugShowCheckedModeBanner: false,
+      title: title,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(_title),
+          title: Text(title),
         ),
-        body: ListView.builder(itemBuilder: (context, index) {
-          return Card(
-            child: InkWell(
+        body: ListView.builder(
+          key: Key('long_list'),
+          padding: EdgeInsets.all(10),
+          itemBuilder: (context, index) {
+            return GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondRoute()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SecondRoute()));
               },
-              child: Column(
-                children: <Widget>[
-                  Image.network(urlImages[index%urlImages.length], key: Key("$index"),),
-                  Text(
-                    "index: $index",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 280,
+                      child: Image.network(
+                        urlImages[index % urlImages.length],
+                        key: Key("$index"),
+                      ),
                     ),
-                  ),
-                ],
+                    Text(
+                      'Imagem $index',
+                      key: Key('item_${index}_text'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        })
+            );
+          },
+        ),
       ),
     );
   }
@@ -58,7 +68,11 @@ class SecondRoute extends StatelessWidget {
         title: Text("Second Screen"),
       ),
       body: Center(
-        child: Text('Second screen!'),
+        child: RaisedButton(
+          key: Key('button'),
+          onPressed: () => Navigator.pop(context),
+          child: Text("Voltar"),
+        ),
       ),
     );
   }
